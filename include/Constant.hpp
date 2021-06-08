@@ -1,8 +1,6 @@
 #ifndef Const_head
 #define Const_head
 
-#include<iostream>
-
 #include<GenericExpression.hpp>
 
 // this is the vector class. It will be used to define vectors that can be added and multiplied.
