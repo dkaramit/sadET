@@ -1,8 +1,7 @@
 # SAD_ET
 Simple Automatic Differentiation (using) Expression Templates
 
-<img style="float: right;" src="https://github.com/dkaramit/SAD_ET/blob/logo/sadETlogo-small.png">
-
+![image alt >](https://github.com/dkaramit/SAD_ET/blob/logo/sadETlogo-small.png)
 
 ![](https://img.shields.io/badge/language-C++-black.svg)  ![](https://tokei.rs/b1/github/dkaramit/SAD_ET)
   
