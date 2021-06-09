@@ -11,8 +11,8 @@
 #include<Constant.hpp>
 #include<Variable.hpp>
 
-#include<GenericBinaryOperator.hpp>
 #include<NumericBinaryOperators.hpp>
+#include<NumericUnaryOperators.hpp>
 
 
 

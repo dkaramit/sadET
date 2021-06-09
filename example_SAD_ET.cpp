@@ -14,32 +14,33 @@ using std::endl;
 #define LD LONG double
 
 
+
+
+
+
+
 int main(){
 
-    Variable<LD> x(11);
+    Variable<LD> x(10);
     Constant<LD> c(1);
+    Constant<LD> z(5);
 
-    cout<<GenericExpression<Constant<LD>>::subExpression(c).evaluate()<<endl;
+    cout<<(x+x+x+x+c).derivative().evaluate()<<endl;
+    cout<<(x+x+x+x+c).derivative().derivative().evaluate()<<endl;
+    cout<<(x+x+x+x+c).derivative().derivative().derivative().derivative().derivative().evaluate()<<endl;
+
+
+    cout<<(x*x).evaluate()<<endl;
+    cout<<(x*(x+c)*x).evaluate()<<endl;
+    cout<<(z*x).derivative().evaluate()<<endl;
+    cout<<(z*x*x).derivative().derivative().evaluate()<<endl;
+
+
+    cout<<(z*(x+c*x+z)*x).derivative().derivative().evaluate()<<endl;
+
+    cout<<exp(x*x).evaluate()<<endl;
+    cout<<exp(x*x).derivative().evaluate()<<endl;
     
-    cout<<GenericExpression<Variable<LD>>::subExpression(x).derivative().evaluate()<<endl;
-    
-
-    cout<<"sum"<<endl;
-    cout<<(x+x).evaluate()<<endl;
-    cout<<
-        GenericExpression<
-        binaryOperator<Addition<Variable<LD>,Variable<LD>>,Variable<LD>,Variable<LD>>
-        >::subExpression(x+x).evaluate()
-    <<endl;
-
-
-    cout<<"derivative of sum"<<endl;
-    cout<<(x+x).derivative().evaluate()<<endl;
-    cout<<
-        GenericExpression<
-        binaryOperator<Addition<Variable<LD>,Variable<LD>>,Variable<LD>,Variable<LD>>
-        >::subExpression(x+x).derivative().evaluate()
-    <<endl;
    
     return 0;
 }
