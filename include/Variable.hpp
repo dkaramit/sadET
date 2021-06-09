@@ -17,7 +17,6 @@ class Variable: public GenericExpression<Variable<LD>>{
     LD& evaluate()  {return value;}
 
     auto derivative()  const {return Constant<LD>(1); }
-    // LD derivative()  const {return 1;}
 
 };
 
