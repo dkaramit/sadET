@@ -5,8 +5,8 @@
 // #include<NumericBinaryOperators.hpp>
 
 // Define a generic operator that takes two expressions (these are called binary operators)
-template<typename LD, typename Operator, typename leftHand, typename rightHand>
-class binaryOperator: public GenericExpression<LD, binaryOperator<LD, Operator,leftHand,rightHand> >{
+template<typename Operator, typename leftHand, typename rightHand>
+class binaryOperator: public GenericExpression<binaryOperator<Operator,leftHand,rightHand> >{
     public:
     const leftHand &LH;
     const rightHand &RH;

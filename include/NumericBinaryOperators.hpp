@@ -2,10 +2,11 @@
 #define NumOp_head
 
 #include<GenericBinaryOperator.hpp>
+#include<GenericExpression.hpp>
 
 
 /*------------------------Addition---------------------------------*/
-template<typename LD, typename leftHand, typename rightHand>
+template<typename leftHand, typename rightHand>
 class Addition{
     public:
 
@@ -14,31 +15,32 @@ class Addition{
     }
 
     inline static auto derivative(const leftHand &LH, const rightHand &RH){
-        // return LH.derivative() + RH.derivative() ;
-        return operator+(LH.derivative(),RH) ;
+        return LH.derivative() + RH.derivative() ;
     }
 };
 
-template<typename LD, typename leftHand, typename rightHand>
-auto operator+(const GenericExpression<LD,leftHand> &LH, const GenericExpression<LD,rightHand> &RH){
-    return binaryOperator<LD,Addition<LD, leftHand,rightHand>,leftHand,rightHand>(LH.subExpression(),RH.subExpression());
+template<typename leftHand, typename rightHand>
+auto operator+(const GenericExpression<leftHand> &LH, const GenericExpression<rightHand> &RH){
+    return binaryOperator<Addition< leftHand,rightHand>,leftHand,rightHand>
+    (GenericExpression<leftHand>::subExpression(LH),GenericExpression<rightHand>::subExpression(RH));
 }
 
 /*------------------------Multiplication---------------------------------*/
-template<typename LD, typename leftHand, typename rightHand>
-class Multiplication{
-    public:
-    static LD evaluate (const leftHand &LH, const rightHand &RH) {
-        return LH.evaluate()*RH.evaluate();
-    }
-};
+// template<typename leftHand, typename rightHand>
+// class Multiplication{
+//     public:
+//     static auto evaluate (const leftHand &LH, const rightHand &RH) {
+//         return LH.evaluate()*RH.evaluate();
+//     }
+// };
 
 
 
-template<typename LD, typename leftHand, typename rightHand>
-auto operator*(const GenericExpression<LD,leftHand> &LH, const GenericExpression<LD,rightHand> &RH){
-    return binaryOperator<LD,Multiplication<LD, leftHand,rightHand>,leftHand,rightHand>(LH.subExpression(),RH.subExpression());
-}
+// template<typename leftHand, typename rightHand>
+// auto operator*(const GenericExpression<leftHand> &LH, const GenericExpression<rightHand> &RH){
+//     return binaryOperator<Multiplication< leftHand,rightHand>,leftHand,rightHand>
+//     (GenericExpression<leftHand>::subExpression(LH),GenericExpression<rightHand>::subExpression(RH));
+// }
 
 
 #endif
