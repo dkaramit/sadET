@@ -1,7 +1,10 @@
 #ifndef NumUnOp_head
 #define NumUnOp_head
 #include<cmath>
+
+#include<Constant.hpp>
 #include<NumericBinaryOperators.hpp>
+
 
 /*------------------------Exp---------------------------------*/
 template<typename Expr>

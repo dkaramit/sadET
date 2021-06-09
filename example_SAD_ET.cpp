@@ -21,9 +21,9 @@ using std::endl;
 
 int main(){
 
-    Variable<LD> x(10);
+    Variable<LD> x(0.1);
     Constant<LD> c(1);
-    Constant<LD> z(5);
+    Constant<LD> z(-1);
 
     cout<<(x+x+x+x+c).derivative().evaluate()<<endl;
     cout<<(x+x+x+x+c).derivative().derivative().evaluate()<<endl;
@@ -40,6 +40,10 @@ int main(){
 
     cout<<exp(x*x).evaluate()<<endl;
     cout<<exp(x*x).derivative().evaluate()<<endl;
+    
+    
+    cout<<exp(z*x*exp(x+c)).evaluate()<<endl;
+    cout<<exp(z*x*exp(x+c)).derivative().evaluate()<<endl;
     
    
     return 0;

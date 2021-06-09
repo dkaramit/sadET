@@ -5,7 +5,8 @@ IncludeDir="$(Path)/include"
 IncludeHPP = $(wildcard include/*.hpp)
 
 
-LONG=long #this is for later use when I'll introduce the option to use long double
+# LONG=long #use this for long doubles
+LONG= 
 
 CC=g++
 OPT=-O3
