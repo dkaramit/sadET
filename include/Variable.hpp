@@ -20,7 +20,11 @@ class Variable{
     // inline static unInt numberOfVariables=0; //number of variables created. It is used for id's
     // Variable(const LD &x):value(x),ID(numberOfVariables++){}
     
+    Variable()=default;
     Variable(const LD &x, const unInt &ID):value(x),ID(ID){}
+
+    unInt getID()const{return ID;}
+    unInt& getID(){return ID;}
 
     inline LD evaluate()  const {return value;}
     inline LD& evaluate()  {return value;}
