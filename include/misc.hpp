@@ -8,8 +8,8 @@ using unInt = unsigned int;
 
 
 // take the derivative of an expression
-template<typename Expr>
-inline auto derivative(const Expr &expr, const unInt &ID){return expr.derivative(ID);}
+// template<typename Expr>
+// inline auto derivative(const Expr &expr, const unInt &ID){return expr.derivative(ID);}
 
 
 

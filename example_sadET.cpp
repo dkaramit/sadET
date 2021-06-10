@@ -15,6 +15,7 @@ inline auto f(const T1 &x,const T2 &y)  {
 }
 
 
+
 #ifndef LONG
     #define LONG
 #endif
@@ -30,23 +31,20 @@ using std::endl;
 
 int main(){
 
-    sadET::Variable<LD> x(0.25,0),y(3.2125,1);
 
+    sadET::Variable<LD,0> x(0.25);
+    sadET::Variable<LD,1> y(3.2125);
+    
+    
     cout<< f(x,y) <<endl;
-    for(unsigned int i=0; i<2; ++i){
-        for(unsigned int j=0; j<2; ++j){
-            cout<<sadET::derivative(sadET::derivative(f(x,y),i),j)<<endl;
-        }
-    }
 
-    /*you can set the input and evaluate it using evaulate() or operator()()*/
-    // f.setInput(0.25,3.2125);
-    // cout<< f() <<endl;
- 
-    /*notice that it takes a lot of time to comiple the following, but is evaluated instantly!*/
-    // cout<<
-    // f().derivative(1).derivative(1).derivative(1).derivative(1).derivative(2)
-    // <<endl;
+    // The drawback of this method is that the derivatives should be known at compile time.
+    // The advandage is that it should be faster. 
+    cout<<f(x,y).derivative<0>().derivative<0>()<<endl;
+    cout<<f(x,y).derivative<0>().derivative<1>()<<endl;
+    cout<<f(x,y).derivative<1>().derivative<0>()<<endl;
+    cout<<f(x,y).derivative<1>().derivative<1>()<<endl;
+
 
 
     return 0;

@@ -21,7 +21,9 @@ class Neg{
 
     inline auto evaluate()const{return -1*expr.evaluate();}
 
-    inline auto derivative(const unInt &ID)const{return Constant<numType>(-1)*(expr.derivative(ID));}
+    
+    template<unInt ID>
+    inline auto derivative()const{return negativeUn<numType>()*(expr.template derivative<ID>());}
     
     friend std::ostream& operator<<(std::ostream& os, const Neg &expr){os<<expr.evaluate();return os;} 
 
@@ -46,7 +48,8 @@ class Exp{
 
     inline auto evaluate()const{return std::exp(expr.evaluate());}
 
-    inline auto derivative(const unInt &ID)const{return Exp<Expr>(expr)*(expr.derivative(ID));}
+    template<unInt ID>
+    inline auto derivative()const{return Exp<Expr>(expr)*(expr.template derivative<ID>());}
     friend std::ostream& operator<<(std::ostream& os, const Exp &expr){os<<expr.evaluate();return os;} 
 };
 
@@ -67,7 +70,8 @@ class Log{
 
     inline auto evaluate()const{return std::log(expr.evaluate());}
 
-    inline auto derivative(const unInt &ID)const{return expr.derivative(ID)/expr ;}
+    template<unInt ID>
+    inline auto derivative()const{return expr.template derivative<ID>()/expr ;}
     
     friend std::ostream& operator<<(std::ostream& os, const Log &expr){os<<expr.evaluate();return os;} 
 
@@ -91,7 +95,8 @@ class Sin{
 
     inline auto evaluate()const{return std::sin(expr.evaluate());}
 
-    inline auto derivative(const unInt &ID)const{return cos(expr)*expr.derivative(ID) ;}
+    template<unInt ID>
+    inline auto derivative()const{return cos(expr)*expr.template derivative<ID>() ;}
     
     friend std::ostream& operator<<(std::ostream& os, const Sin &expr){os<<expr.evaluate();return os;} 
 
@@ -114,7 +119,8 @@ class Cos{
 
     inline auto evaluate()const{return std::cos(expr.evaluate());}
 
-    inline auto derivative(const unInt &ID)const{return -sin(expr)*expr.derivative(ID) ;}
+    template<unInt ID>
+    inline auto derivative()const{return -sin(expr)*expr.template derivative<ID>() ;}
     
     friend std::ostream& operator<<(std::ostream& os, const Cos &expr){os<<expr.evaluate();return os;} 
 

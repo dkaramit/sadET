@@ -23,7 +23,8 @@ class Addition{
 
     inline auto evaluate()const{return LH.evaluate() + RH.evaluate();}
 
-    inline auto derivative(const unInt &ID)const{return LH.derivative(ID) + RH.derivative(ID);}
+    template<unInt ID>
+    inline auto derivative()const{return LH.template derivative<ID>() + RH.template derivative<ID>();}
 
 
     friend std::ostream& operator<<(std::ostream& os, const Addition &expr){os<<expr.evaluate();return os;} 
@@ -51,7 +52,8 @@ class Multiplication{
 
     inline auto evaluate()const{return LH.evaluate() * RH.evaluate();}
 
-    inline auto derivative(const unInt &ID)const{return LH.derivative(ID)*RH + RH.derivative(ID)*LH;}
+    template<unInt ID>
+    inline auto derivative()const{return LH.template derivative<ID>()*RH + RH.template derivative<ID>()*LH;}
 
     friend std::ostream& operator<<(std::ostream& os, const Multiplication &expr){os<<expr.evaluate();return os;} 
 };
@@ -76,7 +78,8 @@ class Subtraction{
 
     inline auto evaluate()const{return LH.evaluate() - RH.evaluate();}
 
-    inline auto derivative(const unInt &ID)const{return LH.derivative(ID) - RH.derivative(ID);}
+    template<unInt ID>
+    inline auto derivative()const{return LH.template derivative<ID>() - RH.template derivative<ID>();}
 
 
     friend std::ostream& operator<<(std::ostream& os, const Subtraction &expr){os<<expr.evaluate();return os;} 
@@ -102,8 +105,9 @@ class Division{
 
     inline auto evaluate()const{return LH.evaluate() / RH.evaluate();}
 
-    inline auto derivative(const unInt &ID)const{
-        return LH.derivative(ID)/RH - LH*(RH.derivative(ID))/(RH*RH) ;
+    template<unInt ID>
+    inline auto derivative()const{
+        return LH.template derivative<ID>()/RH - LH*(RH.template derivative<ID>())/(RH*RH) ;
         }
 
 
@@ -132,10 +136,11 @@ class Pow{
 
     inline auto evaluate()const{return std::pow(B.evaluate() , P.evaluate());}
 
-    inline auto derivative(const unInt &ID)const{
-        Constant<numType> _un_(1);
+    template<unInt ID>
+    inline auto derivative()const{
         
-        return  pow(B,P -_un_) * (P*B.derivative(ID) + B*log(B)*P.derivative(ID) ) ;
+        
+        return  pow(B,P - positiveUn<numType>()) * (P*B.template derivative<ID>() + B*log(B)*P.template derivative<ID>() ) ;
         }
 
 
