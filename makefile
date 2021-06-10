@@ -14,10 +14,10 @@ STD=-std=c++17
 
 FLG=-I$(IncludeDir) $(OPT) $(STD) -DLONG=$(LONG)
 
-all: example_SAD_ET.run
+all: example_sadET.run
 
-example_SAD_ET.run:  makefile $(IncludeHPP) example_SAD_ET.cpp
-	$(CC) -o example_SAD_ET.run $(FLG) example_SAD_ET.cpp
+example_sadET.run:  makefile $(IncludeHPP) example_sadET.cpp
+	$(CC) -o example_sadET.run $(FLG) example_sadET.cpp
 
 clean:
-	rm example_SAD_ET.run || true
+	rm example_sadET.run || true
