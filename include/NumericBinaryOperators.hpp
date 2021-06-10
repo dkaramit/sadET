@@ -6,6 +6,7 @@
 #include<misc.hpp>
 #include<NumericUnaryOperators.hpp>
 
+namespace sadET{
 /*------------------------Addition---------------------------------*/
 template<typename leftHand, typename rightHand>
 class Addition{
@@ -29,7 +30,7 @@ class Addition{
 };
 
 template<typename leftHand, typename rightHand>
-auto operator+(const leftHand &LH, const rightHand &RH){return Addition<leftHand,rightHand>(LH,RH);}
+inline auto operator+(const leftHand &LH, const rightHand &RH){return Addition<leftHand,rightHand>(LH,RH);}
 
 
 
@@ -56,7 +57,7 @@ class Multiplication{
 };
 
 template<typename leftHand, typename rightHand>
-auto operator*(const leftHand &LH, const rightHand &RH){return Multiplication<leftHand,rightHand>(LH,RH);}
+inline auto operator*(const leftHand &LH, const rightHand &RH){return Multiplication<leftHand,rightHand>(LH,RH);}
 
 
 /*------------------------Subtraction---------------------------------*/
@@ -82,7 +83,7 @@ class Subtraction{
 };
 
 template<typename leftHand, typename rightHand>
-auto operator-(const leftHand &LH, const rightHand &RH){return Subtraction<leftHand,rightHand>(LH,RH);}
+inline auto operator-(const leftHand &LH, const rightHand &RH){return Subtraction<leftHand,rightHand>(LH,RH);}
 
 
 /*------------------------Division---------------------------------*/
@@ -110,7 +111,7 @@ class Division{
 };
 
 template<typename leftHand, typename rightHand>
-auto operator/(const leftHand &LH, const rightHand &RH){return Division<leftHand,rightHand>(LH,RH);}
+inline auto operator/(const leftHand &LH, const rightHand &RH){return Division<leftHand,rightHand>(LH,RH);}
 
 
 
@@ -142,7 +143,8 @@ class Pow{
 };
 
 template<typename base, typename power>
-auto pow(const base &B, const power &P){return Pow<base,power>(B,P);}
+inline auto pow(const base &B, const power &P){return Pow<base,power>(B,P);}
 
+};
 
 #endif

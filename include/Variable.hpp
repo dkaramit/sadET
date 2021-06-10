@@ -3,6 +3,7 @@
 
 #include<Constant.hpp>
 
+namespace sadET{
 
 // this is the varable class.
 template<typename LD>
@@ -21,10 +22,10 @@ class Variable{
     
     Variable(const LD &x, const unInt &ID):value(x),ID(ID){}
 
-    LD evaluate()  const {return value;}
-    LD& evaluate()  {return value;}
+    inline LD evaluate()  const {return value;}
+    inline LD& evaluate()  {return value;}
 
-    auto derivative(const unInt &ID) const {
+    inline auto derivative(const unInt &ID) const {
         if (ID==this->ID){return Constant<LD>(1);}
         else{return Constant<LD>(0);}
          
@@ -35,8 +36,6 @@ class Variable{
 
 };
 
-
-
-
+};
 
 #endif

@@ -5,6 +5,8 @@
 #include<Constant.hpp>
 #include<NumericBinaryOperators.hpp>
 
+namespace sadET{
+
 /*------------------------Negative---------------------------------*/
 template<typename Expr>
 class Neg{
@@ -26,7 +28,7 @@ class Neg{
 };
 
 template<typename Expr>
-auto operator-(const Expr &expr){return Neg<Expr>(expr);}
+inline auto operator-(const Expr &expr){return Neg<Expr>(expr);}
 
 
 
@@ -49,7 +51,7 @@ class Exp{
 };
 
 template<typename Expr>
-auto exp(const Expr &expr){return Exp<Expr>(expr);}
+inline auto exp(const Expr &expr){return Exp<Expr>(expr);}
 
 /*------------------------natural Log---------------------------------*/
 template<typename Expr>
@@ -72,7 +74,7 @@ class Log{
 };
 
 template<typename Expr>
-auto log(const Expr &expr){return Log<Expr>(expr);}
+inline auto log(const Expr &expr){return Log<Expr>(expr);}
 
 
 /*------------------------Sin---------------------------------*/
@@ -96,7 +98,7 @@ class Sin{
 };
 
 template<typename Expr>
-auto sin(const Expr &expr){return Sin<Expr>(expr);}
+inline auto sin(const Expr &expr){return Sin<Expr>(expr);}
 
 /*------------------------Cos---------------------------------*/
 template<typename Expr>
@@ -119,7 +121,7 @@ class Cos{
 };
 
 template<typename Expr>
-auto cos(const Expr &expr){return Cos<Expr>(expr);}
+inline auto cos(const Expr &expr){return Cos<Expr>(expr);}
 
-
+}
 #endif

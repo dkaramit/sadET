@@ -1,6 +1,7 @@
 #ifndef Const_head
 #define Const_head
 
+namespace sadET{
 
 template<typename LD>
 class Constant{
@@ -11,11 +12,12 @@ class Constant{
     using numType = LD;
     
     Constant(const LD &x):value(x){}
-    LD evaluate()  const {return value;}
-    auto derivative(const unInt &ID)  const {return Constant<LD>(0);}
+    inline LD evaluate()  const {return value;}
+    inline auto derivative(const unInt &ID)  const {return Constant<LD>(0);}
 
     friend std::ostream& operator<<(std::ostream& os, const Constant &expr){os<<expr.evaluate();return os;} 
 
 };
 
+};
 #endif

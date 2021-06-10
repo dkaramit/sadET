@@ -1,11 +1,15 @@
 #ifndef MISC_head
 #define MISC_head
 
+
+namespace sadET{
+
 using unInt = unsigned int;
+
 
 // take the derivative of an expression
 template<typename Expr>
-auto derivative(const Expr &expr, const unInt &ID){return expr.derivative(ID);}
+inline auto derivative(const Expr &expr, const unInt &ID){return expr.derivative(ID);}
 
 
 
@@ -19,6 +23,6 @@ struct largestType{
 };
 
 
-
+};
 
 #endif
