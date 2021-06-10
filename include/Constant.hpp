@@ -4,6 +4,7 @@
 
 template<typename LD>
 class Constant{
+
     LD value;
     public:
     //this will be used to propagate LD without needeless template arguments
@@ -11,7 +12,10 @@ class Constant{
     
     Constant(const LD &x):value(x){}
     LD evaluate()  const {return value;}
-    auto derivative()  const {return Constant<LD>(0);}
+    auto derivative(const unInt &ID)  const {return Constant<LD>(0);}
+
+    friend std::ostream& operator<<(std::ostream& os, const Constant &expr){os<<expr.evaluate();return os;} 
+
 };
 
 #endif

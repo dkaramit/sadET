@@ -22,7 +22,7 @@ class Addition{
 
     inline auto evaluate()const{return LH.evaluate() + RH.evaluate();}
 
-    inline auto derivative()const{return LH.derivative() + RH.derivative();}
+    inline auto derivative(const unInt &ID)const{return LH.derivative(ID) + RH.derivative(ID);}
 
 
     friend std::ostream& operator<<(std::ostream& os, const Addition &expr){os<<expr.evaluate();return os;} 
@@ -50,7 +50,7 @@ class Multiplication{
 
     inline auto evaluate()const{return LH.evaluate() * RH.evaluate();}
 
-    inline auto derivative()const{return LH.derivative()*RH + RH.derivative()*LH;}
+    inline auto derivative(const unInt &ID)const{return LH.derivative(ID)*RH + RH.derivative(ID)*LH;}
 
     friend std::ostream& operator<<(std::ostream& os, const Multiplication &expr){os<<expr.evaluate();return os;} 
 };
@@ -75,7 +75,7 @@ class Subtraction{
 
     inline auto evaluate()const{return LH.evaluate() - RH.evaluate();}
 
-    inline auto derivative()const{return LH.derivative() - RH.derivative();}
+    inline auto derivative(const unInt &ID)const{return LH.derivative(ID) - RH.derivative(ID);}
 
 
     friend std::ostream& operator<<(std::ostream& os, const Subtraction &expr){os<<expr.evaluate();return os;} 
@@ -101,8 +101,8 @@ class Division{
 
     inline auto evaluate()const{return LH.evaluate() / RH.evaluate();}
 
-    inline auto derivative()const{
-        return LH.derivative()/RH - LH*(RH.derivative())/(RH*RH) ;
+    inline auto derivative(const unInt &ID)const{
+        return LH.derivative(ID)/RH - LH*(RH.derivative(ID))/(RH*RH) ;
         }
 
 
@@ -131,9 +131,10 @@ class Pow{
 
     inline auto evaluate()const{return std::pow(B.evaluate() , P.evaluate());}
 
-    inline auto derivative()const{
+    inline auto derivative(const unInt &ID)const{
         Constant<numType> _un_(1);
-        return  pow(B,P -_un_) * (P*B.derivative() + B*log(B)*P.derivative() ) ;
+        
+        return  pow(B,P -_un_) * (P*B.derivative(ID) + B*log(B)*P.derivative(ID) ) ;
         }
 
 

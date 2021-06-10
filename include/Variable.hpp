@@ -8,18 +8,26 @@
 template<typename LD>
 class Variable{
     LD value;
-    // unsigned int ID; //at some point I am going to use an numeric value in order to get the derivatives wrt multiple variables
+    unInt ID; //at some point I am going to use an numeric value in order to get the derivatives wrt multiple variables
     public:
 
     //this will be used to propagate LD without needeless template arguments
     using numType = LD;
 
-    Variable(const LD &x):value(x){}
+    Variable(const LD &x, const unInt &ID):value(x),ID(ID){}
 
     LD evaluate()  const {return value;}
     LD& evaluate()  {return value;}
 
-    auto derivative() const  {return Constant<LD>(1); }
+    auto derivative(const unInt &ID) const {
+        if (ID==this->ID){return Constant<LD>(1);}
+        else{return Constant<LD>(0);}
+         
+         
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Variable &expr){os<<expr.evaluate();return os;} 
+
 };
 
 

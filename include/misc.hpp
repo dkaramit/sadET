@@ -1,10 +1,11 @@
 #ifndef MISC_head
 #define MISC_head
 
+using unInt = unsigned int;
 
 // take the derivative of an expression
 template<typename Expr>
-auto derivative(const Expr &expr){return expr.derivative();}
+auto derivative(const Expr &expr, const unInt &ID){return expr.derivative(ID);}
 
 
 

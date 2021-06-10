@@ -4,6 +4,7 @@
 
 #include<SAD_ET.hpp>
 
+
 #ifndef LONG
     #define LONG
 #endif
@@ -15,38 +16,23 @@ using std::endl;
 
 int main(){
 
-    Variable<LD> x(0.1);
-    Constant<LD> c(1);
+    Variable<LD> x(0.25,1);
+    Variable<LD> y(3.2125,2);
     Constant<LD> z(-1);
+    Constant<LD> c(1);
 
-    // cout<<(x+x)<<endl;
-    // cout<<(x-x)<<endl;
-    // cout<<-(c+x*x)<<endl;
-    // cout<<exp(-(c+x*x)*z)+c<<endl;
-    // cout<<derivative(exp(-(c+x*x)*z)+c)<<endl;
-    // cout<<derivative(derivative(exp(-(x+z)*c)))<<endl;
-    
-    // cout<<exp(-(x+z)*c)/x- x*exp(x)<<endl;
-    // cout<<derivative(derivative(exp(-(x+z)*c)/x - x*exp(x)))<<endl;
-    // cout<<derivative(derivative(exp(-(x+z)*c)/x - x*exp(x)))*x<<endl;
-   
-    // cout<<log(x) *exp(x*z)<<endl;
-    // cout<<derivative(derivative(log(x) *exp(x*z)))<<endl;
+    cout<<exp(-x*(y+z))+log(x)*sin(y)<<endl;
+    for(unInt i=1; i<=2; ++i){
+        for(unInt j=1; j<=2; ++j){
+            cout<<derivative(derivative(exp(-x*(y+z))+log(x)*sin(y),i),j)<<endl;
+        }
+    }
 
 
-    // cout<<pow(x+c*exp(x),x+z)<<endl;
-    // cout<<derivative(derivative(derivative(pow(x+c*exp(x),x+z))))<<endl;
-
-
-    // cout<<cos(x)<<endl;
-    // cout<<derivative(cos(x))+sin(x)<<endl;
-    // cout<<sin(x)<<endl;
-    // cout<<derivative(sin(x))-cos(x)<<endl;
-
-
+ 
     /*notice that it takes a lot of time to comiple the following, but is evaluated instantly!*/
     // cout<<
-    // exp(-(x+z)*c).derivative().derivative().derivative().derivative()
+    // exp(-(x+z)*c).derivative(1).derivative(1).derivative(1).derivative(1)
     // <<endl;
 
     
