@@ -1,9 +1,5 @@
 #include<iostream>
 #include<cmath>
-#include<vector>
-
-using std::cout;
-using std::endl;
 
 
 #include<SAD_ET.hpp>
@@ -14,10 +10,8 @@ using std::endl;
 #define LD LONG double
 
 
-
-
-
-
+using std::cout;
+using std::endl;
 
 int main(){
 
@@ -25,26 +19,36 @@ int main(){
     Constant<LD> c(1);
     Constant<LD> z(-1);
 
-    cout<<(x+x+x+x+c).derivative().evaluate()<<endl;
-    cout<<(x+x+x+x+c).derivative().derivative().evaluate()<<endl;
-    cout<<(x+x+x+x+c).derivative().derivative().derivative().derivative().derivative().evaluate()<<endl;
-
-
-    cout<<(x*x).evaluate()<<endl;
-    cout<<(x*(x+c)*x).evaluate()<<endl;
-    cout<<(z*x).derivative().evaluate()<<endl;
-    cout<<(z*x*x).derivative().derivative().evaluate()<<endl;
-
-
-    cout<<(z*(x+c*x+z)*x).derivative().derivative().evaluate()<<endl;
-
-    cout<<exp(x*x).evaluate()<<endl;
-    cout<<exp(x*x).derivative().evaluate()<<endl;
+    // cout<<(x+x)<<endl;
+    // cout<<(x-x)<<endl;
+    // cout<<-(c+x*x)<<endl;
+    // cout<<exp(-(c+x*x)*z)+c<<endl;
+    // cout<<derivative(exp(-(c+x*x)*z)+c)<<endl;
+    // cout<<derivative(derivative(exp(-(x+z)*c)))<<endl;
     
-    
-    cout<<exp(z*x*exp(x+c)).evaluate()<<endl;
-    cout<<exp(z*x*exp(x+c)).derivative().evaluate()<<endl;
-    
+    // cout<<exp(-(x+z)*c)/x- x*exp(x)<<endl;
+    // cout<<derivative(derivative(exp(-(x+z)*c)/x - x*exp(x)))<<endl;
+    // cout<<derivative(derivative(exp(-(x+z)*c)/x - x*exp(x)))*x<<endl;
    
+    // cout<<log(x) *exp(x*z)<<endl;
+    // cout<<derivative(derivative(log(x) *exp(x*z)))<<endl;
+
+
+    // cout<<pow(x+c*exp(x),x+z)<<endl;
+    // cout<<derivative(derivative(derivative(pow(x+c*exp(x),x+z))))<<endl;
+
+
+    // cout<<cos(x)<<endl;
+    // cout<<derivative(cos(x))+sin(x)<<endl;
+    // cout<<sin(x)<<endl;
+    // cout<<derivative(sin(x))-cos(x)<<endl;
+
+
+    /*notice that it takes a lot of time to comiple the following, but is evaluated instantly!*/
+    // cout<<
+    // exp(-(x+z)*c).derivative().derivative().derivative().derivative()
+    // <<endl;
+
+    
     return 0;
 }
