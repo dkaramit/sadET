@@ -3,7 +3,7 @@
 
 Simple Automatic Differentiation (using) Expression Templates
 
-![](https://img.shields.io/badge/language-C++-black.svg)  ![](https://tokei.rs/b1/github/dkaramit/SsadET)
+![](https://img.shields.io/badge/language-C++-black.svg)  ![](https://tokei.rs/b1/github/dkaramit/SadET)
   
 ![](https://img.shields.io/github/repo-size/dkaramit/sadET?color=blue)
 
