@@ -8,12 +8,17 @@
 template<typename LD>
 class Variable{
     LD value;
+
     unInt ID; //at some point I am going to use an numeric value in order to get the derivatives wrt multiple variables
     public:
+
 
     //this will be used to propagate LD without needeless template arguments
     using numType = LD;
 
+    // inline static unInt numberOfVariables=0; //number of variables created. It is used for id's
+    // Variable(const LD &x):value(x),ID(numberOfVariables++){}
+    
     Variable(const LD &x, const unInt &ID):value(x),ID(ID){}
 
     LD evaluate()  const {return value;}
