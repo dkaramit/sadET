@@ -9,7 +9,7 @@ IncludeHPP = $(shell find include/ -type f -name '*.hpp')
 LONG= 
 
 CC=g++
-OPT=-O3
+OPT=-O2
 STD=-std=c++17
 
 FLG=-I$(IncludeDir) $(OPT) $(STD) -DLONG=$(LONG)

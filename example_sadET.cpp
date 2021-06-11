@@ -10,7 +10,7 @@
 template<typename T1, typename T2>
 inline auto f(const T1 &x,const T2 &y)  {
 
-    return sadET::exp(-x*(y-1))+sadET::log(3*x*+3*x*pow(4,x))*sadET::sin(y*2);
+    return sadET::exp(-x*(y-1));//+sadET::log(3*x*+3*x*pow(4,x))*sadET::sin(y*2);
 }
 
 
@@ -44,7 +44,8 @@ int main(){
  
     /*notice that it takes a lot of time to comiple the following, but is evaluated instantly!*/
     
-    auto res=f(x,y).derivative(1).derivative(0).derivative(1).derivative(0);
+    auto res=f(x,y).derivative(1).derivative(0).derivative(1).derivative(0).derivative(1).derivative(0).derivative(1);
+    // auto res=(x).derivative(1).derivative(1).derivative(1).derivative(1).derivative(1).derivative(1);
     cout<<res<<endl;
 
 

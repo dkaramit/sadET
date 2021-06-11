@@ -19,7 +19,7 @@ class BinaryOperator{
     using numType = typename largestType<leftHand,rightHand>::numType;
     
     BinaryOperator(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
-    virtual inline numType evaluate() const=0;
+    virtual  numType evaluate() const=0;
     friend std::ostream& operator<<(std::ostream& os, const BinaryOperator &expr)
     {os<<expr.evaluate();return os;} 
 };
