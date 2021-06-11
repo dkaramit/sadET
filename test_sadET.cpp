@@ -11,24 +11,19 @@
 using std::cout;
 using std::endl;
 
+using namespace sadET;
+
+
 int main(){
 
-    sadET::Variable<LD> x(0.25,0),y(3.2125,1);
-    sadET::Constant<LD> c(5);
-    // cout<<x-x<<endl;
-    // cout<<x-c<<endl;
-    // cout<<c-x<<endl;
-    // cout<<-c+x<<endl;
-    // cout<<c-c<<endl;
-    // cout<<33.2-x<<endl;
-    // cout<<x-33.2<<endl;
-    // cout<<2-x-33.2<<endl;
- 
-    // cout<<-1*c+x<<endl;
-    // cout<<x-c<<endl;
-    // cout<<c+x<<endl;
-    // cout<<(1+x+2.3+c+x+x+c+c+c+x+x).derivative(0)<<endl;
-    cout<<1*x*2.3*(-x+1+23+c)*x*x*c*c*c*x*x<<endl;
+    Variable<LD> x(2,0),y(3.2125,1);
+    Constant<LD> c(0.1);
+
+    cout<<-x<<endl;
+    cout<<-x.derivative(0)<<endl;
+    cout<<(-x).derivative(0)<<endl;
+    cout<<(-c).derivative(0)<<endl;
+    cout<<-c<<endl;
 
     return 0;
 }
