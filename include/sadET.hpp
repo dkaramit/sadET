@@ -8,11 +8,17 @@
 #include<misc.hpp>
 
 
-#include<Constant.hpp>
-#include<Variable.hpp>
+#include<Numbers/Constant.hpp>
+#include<Numbers/Variable.hpp>
 
-#include<NumericBinaryOperators.hpp>
-#include<NumericUnaryOperators.hpp>
+#include<NumericBinaryOperators/NumericBinaryOperators.hpp>
+
+#include<NumericBinaryOperators/Addition.hpp>
+#include<NumericBinaryOperators/Multiplication.hpp>
+#include<NumericBinaryOperators/Subtraction.hpp>
+
+
+#include<NumericUnaryOperators/NumericUnaryOperators.hpp>
 
 
 

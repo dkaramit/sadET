@@ -2,8 +2,8 @@
 #define NumUnOp_head
 #include<cmath>
 
-#include<Constant.hpp>
-#include<NumericBinaryOperators.hpp>
+#include<Numbers/Constant.hpp>
+#include<NumericBinaryOperators/NumericBinaryOperators.hpp>
 
 namespace sadET{
 
