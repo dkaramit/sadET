@@ -9,9 +9,8 @@
 
 template<typename T1, typename T2>
 inline auto f(const T1 &x,const T2 &y)  {
-    static sadET::Constant< typename sadET::largestType<T1,T2>::numType > c1(-1);
 
-    return sadET::exp(-x*(y+c1))+sadET::log(x)*sadET::sin(y);
+    return sadET::exp(-x*(y-1))+sadET::log(3*x*+3*x*pow(4,x))*sadET::sin(y*2);
 }
 
 
@@ -44,9 +43,9 @@ int main(){
     // cout<< f() <<endl;
  
     /*notice that it takes a lot of time to comiple the following, but is evaluated instantly!*/
-    // cout<<
-    // f().derivative(1).derivative(1).derivative(1).derivative(1).derivative(2)
-    // <<endl;
+    
+    auto res=f(x,y).derivative(1).derivative(0).derivative(1).derivative(0);
+    cout<<res<<endl;
 
 
     return 0;

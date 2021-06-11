@@ -23,7 +23,6 @@ class Neg{
     inline auto derivative(const unInt &ID)const{return -1*(expr.derivative(ID));}
     
     friend std::ostream& operator<<(std::ostream& os, const Neg &expr){os<<expr.evaluate();return os;} 
-
 };
 
 template<typename Expr>

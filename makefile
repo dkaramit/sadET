@@ -15,7 +15,7 @@ STD=-std=c++17
 FLG=-I$(IncludeDir) $(OPT) $(STD) -DLONG=$(LONG)
 
 
-all: example_sadET.run
+all: example_sadET.run test_sadET.run
 
 example_sadET.run:  makefile $(IncludeHPP) example_sadET.cpp
 	$(CC) -o example_sadET.run $(FLG) example_sadET.cpp
