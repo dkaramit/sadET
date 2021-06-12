@@ -11,7 +11,7 @@ namespace sadET{
 /*------------------------Multiplication---------------------------------*/
 
 // this is the general case of Multiplication
-template<typename leftHand, typename rightHand>
+template<typename leftHand, typename rightHand, typename dummy=void>
 class Multiplication: public BinaryOperator<leftHand,rightHand>{
     public:
 
@@ -27,33 +27,29 @@ template<typename leftHand, typename rightHand>
 inline auto operator*(const leftHand &LH, const rightHand &RH){return Multiplication<leftHand,rightHand>(LH,RH);}
 
 
-/*Use  macros for the rest numeric types :)*/
-#define mulNum(numericType) \
-    template<typename Expr> \
-    class Multiplication<Expr,numericType>: public BinaryOperator<Expr,numericType>{ \
-        public: \
-        using leftHand = Expr;\
-        using rightHand = numericType;\
-        Multiplication(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} \
-        inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const \
-        {return this->LH.evaluate() * this->RH;} \
-        inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID);}\
-    };\
-    template<typename Expr> \
-    class Multiplication<numericType,Expr>: public Multiplication<Expr,numericType>{ \
-        public: \
-        using leftHand = numericType;\
-        using rightHand = Expr;\
-        Multiplication(const leftHand &LH, const rightHand &RH):Multiplication<rightHand,leftHand>(RH,LH){} \
-    };\
+template<typename Expr, typename numericType> 
+class Multiplication<Expr,numericType, typename enable_if<std::is_arithmetic<numericType>::value,void>::type >:
+        public BinaryOperator<Expr,numericType>{ 
+    public: 
+    using leftHand = Expr;
+    using rightHand = numericType;
+    Multiplication(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
+    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
+    {return this->LH.evaluate() * this->RH;} 
+    inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID);}
+};
 
-
-
-mulNum(float);
-mulNum(double);
-mulNum(long double);
-mulNum(int);
-mulNum(unsigned int);
+template<typename numericType, typename Expr> 
+class Multiplication<numericType, Expr, typename  enable_if<std::is_arithmetic<numericType>::value,void>::type >:
+        public BinaryOperator<numericType,Expr>{ 
+    public: 
+    using  leftHand = numericType;
+    using rightHand = Expr;
+    Multiplication(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
+    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
+    {return this->LH * this->RH.evaluate();} 
+    inline auto derivative(const unInt &ID)const{return this->RH.derivative(ID);}
+};
 
 
 }

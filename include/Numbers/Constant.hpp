@@ -3,7 +3,7 @@
 
 namespace sadET{
 
-template<typename LD>
+template<typename LD, typename dummy=void>
 class Constant{
 
     LD value;

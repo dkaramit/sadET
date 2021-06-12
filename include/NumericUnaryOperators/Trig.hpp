@@ -2,11 +2,14 @@
 #define TrigOp_head
 #include<cmath>
 
+#include<misc.hpp>
+#include<Numbers/Constant.hpp>
+#include<NumericBinaryOperators/Addition.hpp>
 
 namespace sadET{
 
 /*------------------------Sin---------------------------------*/
-template<typename Expr>
+template<typename Expr, typename dummy=void>
 class Sin{
     public:
 
@@ -28,8 +31,28 @@ class Sin{
 template<typename Expr>
 inline auto sin(const Expr &expr){return Sin<Expr>(expr);}
 
-/*------------------------Cos---------------------------------*/
+
 template<typename Expr>
+class Sin<Expr,typename enable_if<std::is_arithmetic<Expr>::value>::type>{
+    public:
+
+    // again, this gives us the numerical type used in the expression
+    using numType = Expr;
+    
+    Expr expr;
+
+    Sin(const Expr &expr):expr(expr){}
+
+    inline auto evaluate()const{return std::sin(expr);}
+
+    inline auto derivative(const unInt &ID)const{return Constant<Expr>(0) ;}
+    
+    friend std::ostream& operator<<(std::ostream& os, const Sin &expr){os<<expr.evaluate();return os;} 
+
+};
+
+/*------------------------Cos---------------------------------*/
+template<typename Expr, typename dummy=void>
 class Cos{
     public:
 
@@ -50,6 +73,26 @@ class Cos{
 
 template<typename Expr>
 inline auto cos(const Expr &expr){return Cos<Expr>(expr);}
+
+
+template<typename Expr>
+class Cos<Expr,typename enable_if<std::is_arithmetic<Expr>::value>::type>{
+    public:
+
+    // again, this gives us the numerical type used in the expression
+    using numType = Expr;
+    
+    Expr expr;
+
+    Cos(const Expr &expr):expr(expr){}
+
+    inline auto evaluate()const{return std::cos(expr);}
+
+    inline auto derivative(const unInt &ID)const{return Constant<Expr>(0);}
+    
+    friend std::ostream& operator<<(std::ostream& os, const Cos &expr){os<<expr.evaluate();return os;} 
+
+};
 
 
 }

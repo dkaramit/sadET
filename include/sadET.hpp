@@ -1,11 +1,9 @@
-#include<cmath>
-#include<vector>
-
 
 /*
 
 */
 #include<misc.hpp>
+#include<Derivative.hpp>
 
 
 #include<Numbers/Constant.hpp>

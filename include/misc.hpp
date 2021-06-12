@@ -6,79 +6,49 @@ namespace sadET{
 
 using unInt = unsigned int;
 
-
-// take the derivative of an expression
-template<typename Expr>
-inline auto derivative(const Expr &expr, const unInt &ID){return expr.derivative(ID);}
-
-
 template<bool C, typename T1, typename T2>
 struct IF{using type=T1;};
 
 template<typename T1, typename T2>
 struct IF<false,T1,T2>{using type=T2;};
 
+// enable_if::type is only defined if B==true. So, if we ask for enable_if<false,T>::type we should get 
+// a compiler error, unless it is used in the context of SFINAE.  
+template<bool B, typename T=void> struct enable_if {};
+template<typename T> struct enable_if<true, T> { using type=T; };
+
 
 //this chooses the largest numerical type used in the expression 
 // (eg numType == double if the two expressions have leftHand::numType=int and leftHand::numType=double)
-template<typename leftHand,typename rightHand>
+template<typename leftHand,typename rightHand, typename dummy=void>
 struct largestType{
     using numType = typename IF<(sizeof(typename leftHand::numType) >= sizeof(typename  rightHand::numType)),
                    typename  leftHand::numType, typename rightHand::numType>::type;
 
 };
 
-template<typename Expr>
-struct largestType<Expr,float>{
-    using numType = typename IF<(sizeof(typename Expr::numType) >= sizeof(float)),
-                   typename  Expr::numType, float>::type;
+template<typename Expr, typename LD>
+struct largestType<Expr, LD, 
+typename enable_if<std::is_arithmetic<LD>::value && (! std::is_arithmetic<Expr>::value), void >::type>{
+    using numType = typename IF<(sizeof(typename Expr::numType) >= sizeof(LD)),
+                   typename  Expr::numType, LD>::type;
 };
 
-template<typename Expr>
-struct largestType<float,Expr>{
-    using numType = typename largestType<Expr,float>::numType;
+template<typename LD, typename Expr>
+struct largestType<LD, Expr, 
+typename enable_if<std::is_arithmetic<LD>::value && (! std::is_arithmetic<Expr>::value), void >::type>{
+    using numType = typename IF<(sizeof(typename Expr::numType) >= sizeof(LD)),
+                   typename  Expr::numType, LD>::type;
 };
 
 
-template<typename Expr>
-struct largestType<Expr,double>{
-    using numType = typename IF<(sizeof(typename Expr::numType) >= sizeof(double)),
-                   typename  Expr::numType, double>::type;
+template<typename LD1, typename LD2>
+struct largestType<LD1, LD2, 
+typename enable_if<std::is_arithmetic<LD1>::value && std::is_arithmetic<LD2>::value, void >::type>{
+    using numType = typename IF<sizeof(LD1) >= sizeof(LD2), LD1, LD2>::type;
 };
 
-template<typename Expr>
-struct largestType<double,Expr>{
-    using numType = typename largestType<Expr,double>::numType;
-};
 
-template<typename Expr>
-struct largestType<Expr,long double>{
-    using numType = typename IF<(sizeof(typename Expr::numType) >= sizeof(long double)),
-                   typename  Expr::numType, long double>::type;
-};
-
-template<typename Expr>
-struct largestType<long double,Expr>{
-    using numType = typename largestType<Expr,long double>::numType;
-};
-
-template<typename Expr>
-struct largestType<Expr,int>{
-    using numType = typename IF<(sizeof(typename Expr::numType) >= sizeof(int)),
-                   typename  Expr::numType, int>::type;
-};
-
-template<typename Expr>
-struct largestType<int,Expr>{
-    using numType = typename largestType<Expr,int>::numType;
-};
-
-// template<typename leftHand,typename rightHand>
-// struct largestType{
-//     using numType = typename IF<(sizeof(leftHand) >= sizeof(rightHand)),
-//                    leftHand, rightHand>::type;
-
-// };
 
 
 };

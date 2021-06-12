@@ -10,7 +10,7 @@ namespace sadET{
 /*------------------------Addition---------------------------------*/
 
 // this is the general case of Addition
-template<typename leftHand, typename rightHand>
+template<typename leftHand, typename rightHand, typename dummy=void>
 class Addition: public BinaryOperator<leftHand,rightHand>{
     public:
 
@@ -27,34 +27,31 @@ template<typename leftHand, typename rightHand>
 inline auto operator+(const leftHand &LH, const rightHand &RH){return Addition<leftHand,rightHand>(LH,RH);}
 
 
+template<typename Expr, typename numericType> 
+class Addition<Expr,numericType, typename enable_if<std::is_arithmetic<numericType>::value,void>::type >:
+        public BinaryOperator<Expr,numericType>{ 
+    public: 
+    using leftHand = Expr;
+    using rightHand = numericType;
+    Addition(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
+    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
+    {return this->LH.evaluate() + this->RH;} 
+    inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID);}
+};
 
- 
+template<typename numericType, typename Expr> 
+class Addition<numericType, Expr, typename  enable_if<std::is_arithmetic<numericType>::value,void>::type >:
+        public BinaryOperator<numericType,Expr>{ 
+    public: 
+    using  leftHand = numericType;
+    using rightHand = Expr;
+    Addition(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
+    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
+    {return this->LH + this->RH.evaluate();} 
+    inline auto derivative(const unInt &ID)const{return this->RH.derivative(ID);}
+};
 
-/*Use  macros for the rest numeric types :)*/
-#define addNum(numericType) \
-    template<typename Expr> \
-    class Addition<Expr,numericType>: public BinaryOperator<Expr,numericType>{ \
-        public: \
-        using leftHand = Expr;\
-        using rightHand = numericType;\
-        Addition(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} \
-        inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const \
-        {return this->LH.evaluate() + this->RH;} \
-        inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID);}\
-    };\
-    template<typename Expr> \
-    class Addition<numericType,Expr>: public Addition<Expr,numericType>{ \
-        public: \
-        using leftHand = numericType;\
-        using rightHand = Expr;\
-        Addition(const leftHand &LH, const rightHand &RH):Addition<rightHand,leftHand>(RH,LH){} \
-    };\
 
-addNum(float);
-addNum(double);
-addNum(long double);
-addNum(int);
-addNum(unsigned int);
 
 }
 

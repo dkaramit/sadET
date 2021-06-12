@@ -6,7 +6,7 @@
 namespace sadET{
 
 // this is the varable class.
-template<typename LD>
+template<typename LD, typename dummy=void>
 class Variable{
     LD value;
 
