@@ -7,8 +7,8 @@
 #include<NumericBinaryOperators/NumericBinaryOperators.hpp>
 #include<NumericBinaryOperators/Addition.hpp>
 #include<NumericBinaryOperators/Multiplication.hpp>
-#include<NumericUnaryOperators/NumericUnaryOperators.hpp>
 #include<NumericUnaryOperators/Negative.hpp>
+#include<NumericUnaryOperators/Log.hpp>
 
 namespace sadET{
 

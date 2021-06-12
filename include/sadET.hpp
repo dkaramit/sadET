@@ -20,7 +20,6 @@
 #include<NumericBinaryOperators/Power.hpp>
 
 
-#include<NumericUnaryOperators/NumericUnaryOperators.hpp>
 #include<NumericUnaryOperators/Negative.hpp>
 #include<NumericUnaryOperators/Exp.hpp>
 #include<NumericUnaryOperators/Log.hpp>
