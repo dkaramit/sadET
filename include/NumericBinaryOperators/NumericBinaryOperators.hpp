@@ -4,7 +4,6 @@
 #include<cmath>
 
 #include<misc.hpp>
-#include<NumericUnaryOperators/NumericUnaryOperators.hpp>
 
 namespace sadET{
 
