@@ -57,5 +57,5 @@ addNum(int);
 addNum(unsigned int);
 
 }
-
+#undef addNum
 #endif

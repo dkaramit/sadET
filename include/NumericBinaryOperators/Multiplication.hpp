@@ -55,7 +55,7 @@ mulNum(long double);
 mulNum(int);
 mulNum(unsigned int);
 
-
 }
 
+#undef mulNum
 #endif

@@ -72,5 +72,5 @@ subNum(unsigned int);
 
 
 }
-
+#undef subNum
 #endif

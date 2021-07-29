@@ -80,5 +80,5 @@ powNum(unsigned int);
 
 
 }
-
+#undef powNum
 #endif

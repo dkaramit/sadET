@@ -76,5 +76,5 @@ divNum(unsigned int);
 
 
 }
-
+#undef divNum
 #endif
