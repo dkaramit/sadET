@@ -3,7 +3,7 @@
 
 
 #include<sadET.hpp>
-
+#include"FFANN.hpp"
 // this is how you can define functions 
 // (you can make it a class with overloaded operator() for more functionality)
 
@@ -40,9 +40,19 @@ int main(){
 
  
     /*notice that it takes a lot of time to comiple the following, but is evaluated quicly!*/
+    cout<<f(x,y).derivative(1).derivative(0).derivative(1).derivative(0)<<endl;
+
+
+    /*You can see that the FFANN works!*/
+    std::vector<sadET::Variable<LD>> inputs{x};
     
-    auto res=f(x,y).derivative(1).derivative(0).derivative(1).derivative(0);
-    cout<<res<<endl;
+    unsigned id=ann::FFAANN<LD>::NumberOfInputs;
+
+    std::vector<sadET::Variable<LD>> w{ sadET::Variable<LD>(1,++id), sadET::Variable<LD>(-1,++id)   };
+    std::vector<sadET::Variable<LD>> b{ sadET::Variable<LD>(0,++id), sadET::Variable<LD>(4,++id)   };
+
+    ann::FFAANN<LD> brain(w,b);
+    cout<<brain(inputs)[0].derivative(0).derivative(2)<<endl;
 
 
     return 0;
