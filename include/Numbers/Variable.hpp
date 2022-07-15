@@ -1,44 +1,36 @@
 #ifndef Var_head
 #define Var_head
 
+#include<misc.hpp>
+
 #include<Numbers/Constant.hpp>
 
 namespace sadET{
 
 // this is the varable class.
-template<typename LD, typename dummy=void>
+template<IDType ID, typename LD, typename dummy=void>
 class Variable{
-    LD value;
 
-    unInt ID; //at some point I am going to use an numeric value in order to get the derivatives wrt multiple variables
     public:
-
-
     //this will be used to propagate LD without needeless template arguments
     using numType = LD;
 
-    // inline static unInt numberOfVariables=0; //number of variables created. It is used for id's
-    // Variable(const LD &x):value(x),ID(numberOfVariables++){}
-    
     Variable()=default;
-    Variable(const LD &x, const unInt &ID):value(x),ID(ID){}
+    ~Variable()=default;
 
-    unInt getID()const{return ID;}
-    unInt& getID(){return ID;}
+    IDType getID()const{return ID;}
 
-    inline LD evaluate()  const {return value;}
-    inline LD& evaluate()  {return value;}
-
-    inline auto derivative(const unInt &ID) const {
-        if (ID==this->ID){return Constant<LD>(1);}
-        else{return Constant<LD>(0);}
-         
-         
+    inline LD evaluate(const map<IDType,numType> &at)  const {
+        if (at.find(this->getID()) == at.end()){throw std::runtime_error( std::string("No value for variable with ID: ") + std::to_string(this->getID()) ) ;}
+        return at.at(this->getID());
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Variable &expr){os<<expr.evaluate();return os;} 
+    constexpr auto derivative(const IDType &wrt) const { return wrt==this->getID() ? ONE<LD> :  ZERO<LD>; }
 
 };
+
+
+
 
 };
 

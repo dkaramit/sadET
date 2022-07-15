@@ -1,25 +1,31 @@
 #ifndef Const_head
 #define Const_head
+#include<misc.hpp>
 
 namespace sadET{
 
-template<typename LD, typename dummy=void>
+template<typename LD,typename dummy=void> class Constant;
+
+template<typename LD> static Constant<LD> ZERO(0);
+template<typename LD> static Constant<LD> ONE(1);
+
+template<typename LD, typename dummy>
 class Constant{
 
-    LD value;
+    const LD value;
     public:
     //this will be used to propagate LD without needeless template arguments
     using numType = LD;
     
-    Constant()=default;
+    Constant()=delete;
+    ~Constant()=default;
     Constant(const LD &x):value(x){}
-    inline LD evaluate()  const {return value;}
-    inline LD& evaluate()  {return value;}
-    inline auto derivative(const unInt &ID)  const {return Constant<LD>(0);}
-
-    friend std::ostream& operator<<(std::ostream& os, const Constant &expr){os<<expr.evaluate();return os;} 
-
+    
+    
+    inline LD evaluate(const map<IDType,numType> &at)  const {return value;}
+    constexpr auto derivative(const IDType &ID)  const {return ZERO<LD>;}
 };
+
 
 };
 #endif

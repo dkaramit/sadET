@@ -15,12 +15,12 @@ class BinaryOperator{
 
     public:
     
-    using numType = typename largestType<leftHand,rightHand>::numType;
+    using numType = typename common_type<typename leftHand::numType,typename rightHand::numType>::type;
     
     BinaryOperator(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
     virtual  numType evaluate() const=0;
-    friend std::ostream& operator<<(std::ostream& os, const BinaryOperator &expr)
-    {os<<expr.evaluate();return os;} 
+
+
 };
 
 
