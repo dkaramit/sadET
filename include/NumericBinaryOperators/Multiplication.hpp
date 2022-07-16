@@ -4,52 +4,63 @@
 #include<cmath>
 
 #include<misc.hpp>
-#include<NumericBinaryOperators/NumericBinaryOperators.hpp>
-#include<NumericBinaryOperators/Addition.hpp>
+#include<NumericBinaryOperators/Multiplication.hpp>
 
 namespace sadET{
-/*------------------------Multiplication---------------------------------*/
-
 // this is the general case of Multiplication
 template<typename leftHand, typename rightHand, typename dummy=void>
-class Multiplication: public BinaryOperator<leftHand,rightHand>{
+class Multiplication{
+    leftHand LH;
+    rightHand RH;
+
     public:
+    using numType = typename common_type<typename leftHand::numType,typename rightHand::numType>::type;
 
-    Multiplication(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){}
+    Multiplication(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const{return this->LH.evaluate() * this->RH.evaluate();}
-    inline auto derivative(const unInt &ID)const
-    {return this->LH.derivative(ID)*this->RH + this->RH.derivative(ID)*this->LH;}
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return LH.evaluate(at) * RH.evaluate(at);}
+
+    constexpr auto derivative(const IDType &wrt)const{return LH.derivative(wrt)*RH + LH*RH.derivative(wrt);}
 };
-//  operator* returns a new instance of Multiplication. This happens at compile time, and it the final result 
-// is evaluated when we aske for it. 
+//  operator+ returns a new instance of Multiplication. This happens at compile time, and it the final result is evaluated when we ask for it. 
 template<typename leftHand, typename rightHand>
 inline auto operator*(const leftHand &LH, const rightHand &RH){return Multiplication<leftHand,rightHand>(LH,RH);}
 
+/*===================================Specializations===================================*/
 
-template<typename Expr, typename numericType> 
-class Multiplication<Expr,numericType, typename enable_if<std::is_arithmetic<numericType>::value,void>::type >:
-        public BinaryOperator<Expr,numericType>{ 
-    public: 
-    using leftHand = Expr;
-    using rightHand = numericType;
-    Multiplication(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
-    {return this->LH.evaluate() * this->RH;} 
-    inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID);}
+template<typename leftHand, typename rightHand>
+class Multiplication<leftHand,rightHand,typename std::enable_if<std::is_arithmetic<leftHand>::value,void>::type>{
+    leftHand LH;
+    rightHand RH;
+
+    public:
+    using numType = typename common_type<leftHand,typename rightHand::numType>::type;
+
+    Multiplication(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
+
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return LH * RH.evaluate(at);}
+
+    constexpr auto derivative(const IDType &wrt)const{return LH*RH.derivative(wrt);}
 };
 
-template<typename numericType, typename Expr> 
-class Multiplication<numericType, Expr, typename  enable_if<std::is_arithmetic<numericType>::value,void>::type >:
-        public BinaryOperator<numericType,Expr>{ 
-    public: 
-    using  leftHand = numericType;
-    using rightHand = Expr;
-    Multiplication(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
-    {return this->LH * this->RH.evaluate();} 
-    inline auto derivative(const unInt &ID)const{return this->RH.derivative(ID);}
+template<typename leftHand, typename rightHand>
+class Multiplication<leftHand,rightHand,typename std::enable_if<std::is_arithmetic<rightHand>::value,void>::type>{
+    leftHand LH;
+    rightHand RH;
+
+    public:
+    using numType = typename common_type<typename leftHand::numType,rightHand>::type;
+
+    Multiplication(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
+
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return LH.evaluate(at)*RH;}
+
+    constexpr auto derivative(const IDType &wrt)const{return LH.derivative(wrt)*RH;}
 };
+
 
 }
 

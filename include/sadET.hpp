@@ -2,16 +2,13 @@
 /*
 
 */
-// #include<misc.hpp>
-// #include<Derivative.hpp>
 
 
-#include<Numbers/Constant.hpp>
 #include<Numbers/Variable.hpp>
+#include<utilities.hpp>
 
 #include<NumericBinaryOperators/Addition.hpp>
-// #include<NumericBinaryOperators/NumericBinaryOperators.hpp>
-// #include<NumericBinaryOperators/Multiplication.hpp>
+#include<NumericBinaryOperators/Multiplication.hpp>
 // #include<NumericBinaryOperators/Subtraction.hpp>
 // #include<NumericBinaryOperators/Division.hpp>
 // #include<NumericBinaryOperators/Power.hpp>
