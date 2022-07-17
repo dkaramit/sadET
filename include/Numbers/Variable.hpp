@@ -32,8 +32,10 @@ class Variable{
         else return ZERO<numType>;
     }
 
-};
+    string str()const{return string("var_") + to_string(ID);}
 
 };
+
+}
 
 #endif

@@ -23,10 +23,13 @@ class Multiplication{
 
     template<IDType WRT,typename T>
     constexpr auto derivative(const Variable<WRT,T> &wrt) const {return LH.derivative(wrt)*RH + LH*RH.derivative(wrt);}
+
+    string str()const{return string("(") + print_expr(LH) + string("*") + print_expr(RH) + string(")");}
+
 };
 //  operator+ returns a new instance of Multiplication. This happens at compile time, and it the final result is evaluated when we ask for it. 
 template<typename leftHand, typename rightHand>
-inline auto operator*(const leftHand &LH, const rightHand &RH){return Multiplication<leftHand,rightHand>(LH,RH);}
+inline auto operator*(const leftHand &LH, const rightHand &RH){return Multiplication(LH,RH);}
 
 /*===================================Specializations===================================*/
 

@@ -41,9 +41,22 @@ class Constant{
     template<IDType WRT,typename T>
     constexpr auto derivative(const Variable<WRT,T> &wrt) const { return ZERO<numType> ;}
 
+    string str()const{return to_string(value);}
+
+
     constexpr static numType value=Value.value;
 };
 
-};
+
+
+template<typename Expr> struct isConst{constexpr static bool value=false;};
+
+template<typename LD, templateP<LD> Value>
+struct isConst<Constant<LD,Value>>{constexpr static bool value=true;};
+
+
+
+
+}
 
 #endif

@@ -1,4 +1,4 @@
-reootDir="./"
+reootDir="../"
 
 IncludeDir="$(reootDir)/include"
 IncludeHPP = $(shell find include/ -type f -name '*.hpp')
@@ -9,16 +9,14 @@ STD=-std=c++2a#you need c++2a for the constants
 
 FLG=-I$(IncludeDir) $(OPT) $(STD) -Wall -pedantic
 
+EXE = $(shell find . -type f -name '*.cpp' | sed 's/\.cpp/.run/g' | sed 's/\.\///g')
 
-all: test.run examples
+all: $(EXE)
 
-test.run: test.cpp makefile $(IncludeHPP)
+
+%.run: %.cpp makefile $(IncludeHPP)
 	$(CC) -o $@ $< $(FLG) 
-
-examples:
-	cd Examples && $(MAKE) all
 
 
 clean:
-	rm test.run || true
-	cd Examples && $(MAKE) clean
+	rm *.run || true
