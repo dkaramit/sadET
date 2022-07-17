@@ -12,6 +12,7 @@ using std::endl;
 int main(){
     sadET::Constant<long double,3.4> c;
     sadET::Variable<0,double> x;
+    sadET::Variable<1,double> y;
 
     std::map<sadET::IDType,long double> at;
     at[0]=2;
@@ -35,6 +36,12 @@ int main(){
     cout<<print_expr(c+x+c+x)<<"\n";
     cout<<print_expr(x+c+x+c)<<"\n";
     cout<<print_expr(c+x+x+c)<<"\n";
+
+    // works
+    cout<<print_expr(y+x)<<"\n";
+
+    // does not work
+    cout<<print_expr(y+x+y+x)<<"\n";
 
     return 0;
 }

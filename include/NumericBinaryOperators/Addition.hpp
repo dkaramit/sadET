@@ -35,6 +35,21 @@ template<typename leftHand, typename rightHand>
 inline auto operator+(const leftHand &LH, const rightHand &RH){return Addition(LH,RH);}
 
 /*===================================Specializations/Simplifications===================================*/
+
+// Sort variables: 
+// Variable<1> + Variable<0> -> Variable<0> + Variable<1>
+template<typename leftHand, typename rightHand, IDType IDL, IDType IDR>
+inline auto operator+(const Variable<IDL,leftHand> &LH, const Variable<IDR,rightHand> &RH){
+    if constexpr(IDR<IDL){return Addition(RH,LH);}  
+    else return Addition(LH,RH); 
+}
+
+
+// Define how the addition happens: 
+// LH+(RH1+RH2) -> (LH+RH1)+RH2
+template<typename leftHand, typename rightHand1, typename rightHand2>
+inline auto operator+(const leftHand &LH, const Addition<rightHand1,rightHand2> &RH){  return (LH+RH.LH)+RH.RH; }
+
 // Constant<leftHand, ValueL> + Constant<rightHand, ValueR> -> Constant<common_type, ValueL+ValueR> 
 template<typename leftHand, templateP<leftHand> ValueL, typename rightHand, templateP<rightHand> ValueR>
 inline auto operator+(const Constant<leftHand, ValueL> &LH, const Constant<rightHand, ValueR> &RH){
@@ -48,10 +63,6 @@ template<typename leftHand, typename rightHand, templateP<rightHand> ValueR>
 inline auto operator+(const leftHand &LH, const Constant<rightHand, ValueR> &RH){return RH+LH;}
 
 
-// Move all constants to the left:
-// expression1 + (Constant<rightHand, ValueR> + expression2) -> (expression1 + Constant<rightHand, ValueR>) + expression2 
-template<typename leftHand, typename rightHand1, typename rightHand2>
-inline auto operator+(const leftHand &LH, const Addition<rightHand1,rightHand2> &RH){ return (LH+RH.LH)+RH.RH; }
 
 
 
