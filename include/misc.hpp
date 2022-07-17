@@ -13,6 +13,8 @@ using std::common_type;
 using std::map;
 using std::vector;
 
+template<IDType ID, typename LD, typename dummy=void> class Variable;
+
 
 };
 

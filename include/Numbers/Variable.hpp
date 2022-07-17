@@ -2,11 +2,12 @@
 #define Var_head
 
 #include<misc.hpp>
+#include<Numbers/Constant.hpp>
 
 namespace sadET{
 
 // this is the varable class.
-template<IDType ID, typename LD, typename dummy=void>
+template<IDType ID, typename LD, typename dummy>
 class Variable{
     static_assert(std::is_floating_point<LD>::value, "Use only floating point numbers!");
 
@@ -25,7 +26,11 @@ class Variable{
         return at.at(this->getID());
     }
 
-    constexpr numType derivative(const IDType &wrt) const { return wrt==this->getID() ? 1 : 0 ;}
+    template<IDType WRT,typename T>
+    constexpr auto derivative(const Variable<WRT,T> &wrt) const {
+        if constexpr(WRT==ID) return ONE<numType>;
+        else return ZERO<numType>;
+    }
 
 };
 

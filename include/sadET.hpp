@@ -4,6 +4,7 @@
 */
 
 
+#include<Numbers/Constant.hpp>
 #include<Numbers/Variable.hpp>
 #include<utilities.hpp>
 
