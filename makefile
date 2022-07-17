@@ -5,14 +5,13 @@ IncludeDir="$(Path)/include"
 IncludeHPP = $(shell find include/ -type f -name '*.hpp')
 
 
-# LONG=long #use this for long doubles
-LONG= 
-
 CC=g++
 OPT=-O3
 STD=-std=c++17
+# STD=-std=c++2a
 
-FLG=-I$(IncludeDir) $(OPT) $(STD) -DLONG=$(LONG) -Wall
+
+FLG=-I$(IncludeDir) $(OPT) $(STD) -Wall
 
 all:test_sadET.run
 
