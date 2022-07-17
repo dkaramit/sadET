@@ -10,10 +10,10 @@ namespace sadET{
 // this is the general case of Multiplication
 template<typename leftHand, typename rightHand, typename dummy=void>
 class Multiplication{
+    public:
     leftHand LH;
     rightHand RH;
 
-    public:
     using numType = typename common_type<typename leftHand::numType,typename rightHand::numType>::type;
 
     Multiplication(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}

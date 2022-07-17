@@ -27,13 +27,14 @@ int main(){
     
     // works
     cout<<print_expr(c+x+c)<<"\n";
+    cout<<print_expr(x+c+c)<<"\n";
+    // works
+    cout<<print_expr(x+c+x)<<"\n";
 
     // works
     cout<<print_expr(c+x+c+x)<<"\n";
-
-    // does not work
     cout<<print_expr(x+c+x+c)<<"\n";
-    cout<<print_expr(x+(c+(x+c)))<<"\n"; //the expressoion above has to be transformed to this
+    cout<<print_expr(c+x+x+c)<<"\n";
 
     return 0;
 }

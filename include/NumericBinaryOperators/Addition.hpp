@@ -5,7 +5,6 @@
 
 #include<misc.hpp>
 #include<Numbers/Constant.hpp>
-#include<Numbers/Variable.hpp>
 
 namespace sadET{
 /*------------------------Addition---------------------------------*/
@@ -51,10 +50,8 @@ inline auto operator+(const leftHand &LH, const Constant<rightHand, ValueR> &RH)
 
 // Move all constants to the left:
 // expression1 + (Constant<rightHand, ValueR> + expression2) -> (expression1 + Constant<rightHand, ValueR>) + expression2 
-template<typename leftHand, typename rightHand1, templateP<rightHand1> Value, typename rightHand2>
-inline auto operator+(const leftHand &LH, const Addition<Constant<rightHand1, Value>,rightHand2> &RH){
-    return (LH+RH.LH)+RH.RH;
-}
+template<typename leftHand, typename rightHand1, typename rightHand2>
+inline auto operator+(const leftHand &LH, const Addition<rightHand1,rightHand2> &RH){ return (LH+RH.LH)+RH.RH; }
 
 
 
