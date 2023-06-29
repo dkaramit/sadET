@@ -5,7 +5,7 @@ IncludeHPP = $(shell find include/ -type f -name '*.hpp')
 
 CC=g++
 OPT=-O3
-STD=-std=c++2a#you need c++2a for the constants
+STD=-std=c++20#you need c++20 for the constants
 
 FLG=-I$(IncludeDir) $(OPT) $(STD) -Wall -pedantic
 
