@@ -24,7 +24,7 @@ int main(){
     at[1]=2.99;
 
     cout<<evaluate( Sum<4>(x*Sum<300>(c*y)) ,at)<<endl;
-    cout<<evaluate( derivative(Sum<4>(x*Sum<3>(c*y)),x,y),at)<<endl;
+    cout<<evaluate( derivative(Sum<40>(x*Sum<300>(c*y*x)),x,y),at)<<endl;
 
 
     return 0;

@@ -7,7 +7,7 @@ CC=g++
 OPT=-O3
 STD=-std=c++20#you need c++20 for the constants
 
-FLG=-I$(IncludeDir) $(OPT) $(STD) -Wall -pedantic
+FLG=-I$(IncludeDir) $(OPT) $(STD) -Wall -pedantic -ftemplate-depth=9999999
 
 
 all: test.run examples sum.run
