@@ -10,7 +10,7 @@ STD=-std=c++20#you need c++20 for the constants
 FLG=-I$(IncludeDir) $(OPT) $(STD) -Wall -pedantic
 
 
-all: test.run examples sum
+all: test.run examples sum.run
 
 test.run: test.cpp makefile $(IncludeHPP)
 	$(CC) -o $@ $< $(FLG) 
@@ -24,4 +24,5 @@ examples:
 
 clean:
 	rm test.run || true
+	rm sum.run || true
 	cd Examples && $(MAKE) clean
