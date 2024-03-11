@@ -12,3 +12,5 @@ Simple Automatic Differentiation (using) Expression Templates
 A simple library for Automatic Differentiation in ```C++```. 
 
 ## Work in progress...
+## Note to me: Sort variables wrt ids's in operators. This may help you simplify things. 
+## Note to me:  Define Sum and Product for many variables (e.g. `Sum<expr, restExpr...>`) recursively, but with expressions ordered in some way.
