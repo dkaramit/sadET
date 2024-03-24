@@ -1,5 +1,5 @@
 # sadET
-<img align="right" src="https://github.com/dkaramit/sadET/blob/.logo/sadETlogo-small.png">
+<img align="right" src="https://github.com/dkaramit/sadET/.logo/sadETlogo-small.png">
 
 ![](https://img.shields.io/badge/language-C++-black.svg)  ![](https://tokei.rs/b1/github/dkaramit/SadET)
   
