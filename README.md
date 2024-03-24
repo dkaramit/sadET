@@ -77,4 +77,4 @@ For full examples, see the `Examples` directory. I hope to continue adding new f
 - Define Sum and Product for many variables (e.g. `Sum<expr, restExpr...>`) recursively, but with expressions ordered in some way.
 - Simplification rules. This feels harder, due to the heuristic nature of the subject.
 
-***If you know how to do these things, and like `sadET`, let me know, dkarami@yahoo.com.*** 
+***If you know how to do these things, and like `sadET`, let me know at dkarami@yahoo.com.*** 
