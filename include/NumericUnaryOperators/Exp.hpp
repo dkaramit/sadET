@@ -20,14 +20,23 @@ class Exp{
 
     Exp(const Expr &expr):expr(expr){}
 
-    inline auto evaluate()const{return std::exp(expr.evaluate());}
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return std::exp(expr.evaluate(at));}
 
-    inline auto derivative(const unInt &ID)const{return Exp<Expr>(expr)*(expr.derivative(ID));}
-    friend std::ostream& operator<<(std::ostream& os, const Exp &expr){os<<expr.evaluate();return os;} 
+    template<IDType WRT,typename T>
+    constexpr auto derivative(const Variable<WRT,T> &wrt) const {return Exp<Expr>(expr)*(expr.derivative(wrt)) ;}
+
+
+    string str()const{return string("exp(") + print_expr(expr) + string(")");}
+
 };
 
 template<typename Expr>
 inline auto exp(const Expr &expr){return Exp<Expr>(expr);}
+
+/*===================================Specializations/Simplifications===================================*/
+// This is how you define Exp for numbers. Not very useful for the moment.
+
 
 template<typename Expr>
 class Exp<Expr,typename enable_if<std::is_arithmetic<Expr>::value>::type>{
@@ -39,10 +48,13 @@ class Exp<Expr,typename enable_if<std::is_arithmetic<Expr>::value>::type>{
 
     Exp(const Expr &expr):expr(expr){}
 
-    inline auto evaluate()const{return std::exp(expr);}
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return std::exp(expr);}
 
-    inline auto derivative(const unInt &ID)const{return Constant<Expr>(0);}
-    friend std::ostream& operator<<(std::ostream& os, const Exp &expr){os<<expr.evaluate();return os;} 
+    template<IDType WRT,typename T>
+    constexpr auto derivative(const Variable<WRT,T> &wrt) const {return ZERO<numType> ;}
+
+    string str()const{return string(std::exp(expr)) ;}
 };
 
 }

@@ -4,7 +4,6 @@
 #include<cmath>
 
 #include<misc.hpp>
-#include<NumericBinaryOperators/NumericBinaryOperators.hpp>
 #include<NumericBinaryOperators/Addition.hpp>
 #include<NumericBinaryOperators/Multiplication.hpp>
 #include<NumericUnaryOperators/Negative.hpp>
@@ -15,45 +14,28 @@ namespace sadET{
 
 // this is the general case of Subtraction
 template<typename leftHand, typename rightHand, typename dummy=void>
-class Subtraction: public BinaryOperator<leftHand,rightHand>{
-    public:
+class Subtraction{
+    public:    
+    leftHand LH;
+    rightHand RH;
 
-    Subtraction(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){}
+    using numType = typename common_type<typename leftHand::numType,typename rightHand::numType>::type;
 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const
-    {return this->LH.evaluate() - this->RH.evaluate();}
+    Subtraction(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
 
-    inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID) - this->RH.derivative(ID);}
+
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return LH.evaluate(at) - RH.evaluate(at);}
+
+    template<IDType WRT,typename T>
+    constexpr auto derivative(const Variable<WRT,T> &wrt) const {return LH.derivative(wrt) - RH.derivative(wrt);}
+
+    string str()const{return string("(") + print_expr(LH) + string("-") + print_expr(RH) + string(")");}
+
 };
-//  operator- returns a new instance of Subtraction. This happens at compile time, and it the final result 
-// is evaluated when we aske for it. 
+ 
 template<typename leftHand, typename rightHand>
 inline auto operator-(const leftHand &LH, const rightHand &RH){return Subtraction<leftHand,rightHand>(LH,RH);}
-
-template<typename Expr, typename numericType> 
-class Subtraction<Expr,numericType, typename enable_if<std::is_arithmetic<numericType>::value,void>::type >:
-        public BinaryOperator<Expr,numericType>{ 
-    public: 
-    using leftHand = Expr;
-    using rightHand = numericType;
-    Subtraction(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
-    {return this->LH.evaluate() - this->RH;} 
-    inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID);}
-};
-
-template<typename numericType, typename Expr> 
-class Subtraction<numericType, Expr, typename  enable_if<std::is_arithmetic<numericType>::value,void>::type >:
-        public BinaryOperator<numericType,Expr>{ 
-    public: 
-    using  leftHand = numericType;
-    using rightHand = Expr;
-    Subtraction(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
-    {return this->LH - this->RH.evaluate();} 
-    inline auto derivative(const unInt &ID)const{return -this->RH.derivative(ID);}
-};
-
 
 
 

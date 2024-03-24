@@ -6,42 +6,18 @@
 
 using std::cout;
 using std::endl;
-// using sadET::evaluate;
-// using sadET::derivative;
+using sadET::evaluate;
+using sadET::derivative;
 
 int main(){
-    sadET::Constant<long double,3.4> c;
+    sadET::Constant<long double,0.4> c;
     sadET::Variable<0,double> x;
     sadET::Variable<1,double> y;
 
-    std::map<sadET::IDType,long double> at;
-    at[0]=2;
+    std::map<sadET::IDType,long double> at= {{x.getID(),0.2},{y.getID(),0.8}} ;
 
-    // works
-    cout<<print_expr(c+c)<<"\n";
 
-    // works
-    cout<<print_expr(c+x)<<"\n";
-
-    // works
-    cout<<print_expr(x+c)<<"\n";
-    
-    // works
-    cout<<print_expr(c+x+c)<<"\n";
-    cout<<print_expr(x+c+c)<<"\n";
-    // works
-    cout<<print_expr(x+c+x)<<"\n";
-
-    // works
-    cout<<print_expr(c+x+c+x)<<"\n";
-    cout<<print_expr(x+c+x+c)<<"\n";
-    cout<<print_expr(c+x+x+c)<<"\n";
-
-    // works
-    cout<<print_expr(y+x)<<"\n";
-
-    // does not work
-    cout<<print_expr(y+x+y+x)<<"\n";
+    cout<<evaluate( derivative( sin(x) * cos(y) + pow( x, sin(y+c) ) ,  x,y ) , at )<<"\n";
 
     return 0;
 }

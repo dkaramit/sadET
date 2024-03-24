@@ -2,12 +2,12 @@
 #define NegOp_head
 #include<cmath>
 
-#include<NumericBinaryOperators/Multiplication.hpp>
 
 namespace sadET{
 
 /*------------------------Negative---------------------------------*/
-template<typename Expr>
+
+template<typename Expr, typename dummy=void>
 class Neg{
     public:
 
@@ -18,12 +18,15 @@ class Neg{
 
     Neg(const Expr &expr):expr(expr){}
 
-    inline auto evaluate()const{return -1*expr.evaluate();}
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return -expr.evaluate(at);}
 
-    inline auto derivative(const unInt &ID)const{return -1*(expr.derivative(ID));}
-    
-    friend std::ostream& operator<<(std::ostream& os, const Neg &expr){os<<expr.evaluate();return os;} 
+    template<IDType WRT,typename T>
+    constexpr auto derivative(const Variable<WRT,T> &wrt) const {return -expr.derivative(wrt);}
+
+    string str()const{return string("-(") + print_expr(expr) + string(")");}
 };
+
 
 template<typename Expr>
 inline auto operator-(const Expr &expr){return Neg<Expr>(expr);}

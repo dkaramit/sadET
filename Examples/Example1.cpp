@@ -22,10 +22,7 @@ int main(){
             (z*d*(x + x*x)*y*y + c)*(z*d*(x + x*x)*z*x + c)*(z*d*(x + x*z)*y*z + c);
 
 
-    std::map<sadET::IDType,long double> at;
-    at[0]=-2;
-    at[1]=1.23;
-    at[2]=1e-7;
+    std::map<sadET::IDType,long double> at={{0,-0.3},{1,1.23},{2,1e-7}};
 
     
     cout<<evaluate(c,at)<<"\n";

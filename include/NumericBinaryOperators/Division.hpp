@@ -4,11 +4,9 @@
 #include<cmath>
 
 #include<misc.hpp>
-#include<NumericBinaryOperators/NumericBinaryOperators.hpp>
 #include<NumericBinaryOperators/Addition.hpp>
 #include<NumericBinaryOperators/Multiplication.hpp>
 #include<NumericBinaryOperators/Subtraction.hpp>
-#include<NumericUnaryOperators/Negative.hpp>
 
 namespace sadET{
 
@@ -16,47 +14,29 @@ namespace sadET{
 
 // this is the general case of Division
 template<typename leftHand, typename rightHand, typename dummy=void>
-class Division: public BinaryOperator<leftHand,rightHand>{
+class Division{
     public:
 
-    Division(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){}
+    leftHand LH;
+    rightHand RH;
 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const
-    {return this->LH.evaluate() / this->RH.evaluate();}
+    using numType = typename common_type<typename leftHand::numType,typename rightHand::numType>::type;
 
-    inline auto derivative(const unInt &ID)const
-    {return this->LH.derivative(ID)/this->RH - this->LH*(this->RH.derivative(ID))/(this->RH*this->RH);}
+    Division(const leftHand &LH, const rightHand &RH):LH(LH),RH(RH){}
+
+    template<typename T>
+    inline auto evaluate(const map<IDType,T> &at)const{return LH.evaluate(at) / RH.evaluate(at);}
+
+    template<IDType WRT,typename T>
+    constexpr auto derivative(const Variable<WRT,T> &wrt) const {return LH.derivative(wrt)/RH - LH*(RH.derivative(wrt))/(RH*RH);}
+
+    string str()const{return string("(") + print_expr(LH) + string("/") + print_expr(RH) + string(")");}
+
+
 };
-//  operator/ returns a new instance of Division. This happens at compile time, and it the final result 
-// is evaluated when we aske for it. 
+
 template<typename leftHand, typename rightHand>
 inline auto operator/(const leftHand &LH, const rightHand &RH){return Division<leftHand,rightHand>(LH,RH);}
-
-
-
-template<typename Expr, typename numericType> 
-class Division<Expr,numericType, typename enable_if<std::is_arithmetic<numericType>::value,void>::type >:
-        public BinaryOperator<Expr,numericType>{ 
-    public: 
-    using leftHand = Expr;
-    using rightHand = numericType;
-    Division(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
-    {return this->LH.evaluate() / this->RH;} 
-    inline auto derivative(const unInt &ID)const{return this->LH.derivative(ID)/this->RH;}
-};
-
-template<typename numericType, typename Expr> 
-class Division<numericType, Expr, typename  enable_if<std::is_arithmetic<numericType>::value,void>::type >:
-        public BinaryOperator<numericType,Expr>{ 
-    public: 
-    using  leftHand = numericType;
-    using rightHand = Expr;
-    Division(const leftHand &LH, const rightHand &RH):BinaryOperator<leftHand,rightHand>(LH,RH){} 
-    inline typename BinaryOperator<leftHand,rightHand>::numType evaluate()const 
-    {return this->LH / this->RH.evaluate();} 
-    inline auto derivative(const unInt &ID)const{return  - this->LH*(this->RH.derivative(ID))/(this->RH*this->RH);}
-};
 
 
 

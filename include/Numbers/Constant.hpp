@@ -22,6 +22,8 @@ class Constant;
 
 template<typename LD> constexpr static Constant<LD,0> ZERO;
 template<typename LD> constexpr static Constant<LD,1> ONE;
+template<typename LD> constexpr static Constant<LD,-1> NEGATIVE_ONE;
+template<typename LD> constexpr static Constant<LD,M_PI> PI;
 
 // this is the varable class.
 template<typename LD, templateP<LD> Value>
