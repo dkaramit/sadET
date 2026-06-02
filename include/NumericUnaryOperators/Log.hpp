@@ -9,14 +9,15 @@
 namespace sadET{
 
 /*------------------------natural Log---------------------------------*/
-template<typename Expr, typename dummy=void>
+template<typename Expr>
 class Log{
     public:
+    using is_sadET = void;
     using numType = typename Expr::numType;
     
     Expr expr;
 
-    Log(const Expr &expr):expr(expr){}
+    constexpr Log(const Expr &expr):expr(expr){}
 
     template<typename T>
     inline auto evaluate(const map<IDType,T> &at)const{return std::log(expr.evaluate(at));}
@@ -29,8 +30,8 @@ class Log{
 
 };
 
-template<typename Expr>
-inline auto log(const Expr &expr){return Log<Expr>(expr);}
+template<sadExpr Expr>
+constexpr inline auto log(const Expr &expr){return Log<Expr>(expr);}
 
 
 }

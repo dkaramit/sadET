@@ -12,6 +12,10 @@ class Variable{
     static_assert(std::is_floating_point<LD>::value, "Use only floating point numbers!");
 
     public:
+    //this tells me that this is a sadET expression
+    using is_sadET = void;
+    //It is good to know if it is a variable.
+    using is_Var = void;
     //this will be used to propagate LD without needeless template arguments
     using numType = LD;
 

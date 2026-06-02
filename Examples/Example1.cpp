@@ -17,9 +17,7 @@ int main(){
     sadET::Variable<2,double> z;
 
     auto f= (z*d*(x + x*x)*y*y + c)*(z*d*(x + x*x)*y*y + c)*(z*d*(x + x*x)*y*y + c)*
-            (z*d*(x + x*x)*y*y + c)*(z*d*(y + x*y)*y*y + c)*(z*d*(x + x*x)*y*y + c)*
-            (z*d*(x + x*x)*y*y + c)*(z*d*(x + z*x)*y*y + c)*(z*d*(x + z*x)*y*y + c)*
-            (z*d*(x + x*x)*y*y + c)*(z*d*(x + x*x)*z*x + c)*(z*d*(x + x*z)*y*z + c);
+            (z*d*(x + x*x)*y*y + c)*(z*d*(y + x*y)*y*y + c)*(z*d*(x + x*x)*y*y + c);
 
 
     std::map<sadET::IDType,long double> at={{0,-0.3},{1,1.23},{2,1e-7}};

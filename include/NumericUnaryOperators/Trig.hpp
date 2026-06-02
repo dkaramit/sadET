@@ -4,15 +4,16 @@
 
 #include<misc.hpp>
 #include<Numbers/Constant.hpp>
-#include<NumericBinaryOperators/Addition.hpp>
+#include<NumericOperators/Sum.hpp>
 #include<NumericUnaryOperators/Negative.hpp>
 
 namespace sadET{
 
 /*------------------------Sin---------------------------------*/
-template<typename Expr, typename dummy=void>
+template<typename Expr>
 class Sin{
     public:
+    using is_sadET = void;
     using numType = typename Expr::numType;
 
     Expr expr;
@@ -29,16 +30,15 @@ class Sin{
 
 };
 
-template<typename Expr>
+template<sadExpr Expr>
 inline auto sin(const Expr &expr){return Sin<Expr>(expr);}
 
 
 /*------------------------Cos---------------------------------*/
-template<typename Expr, typename dummy=void>
+template<typename Expr>
 class Cos{
     public:
-
-    // again, this gives us the numerical type used in the expression
+    using is_sadET = void;
     using numType = typename Expr::numType;
     
     Expr expr;
@@ -55,7 +55,7 @@ class Cos{
 
 };
 
-template<typename Expr>
+template<sadExpr Expr>
 inline auto cos(const Expr &expr){return Cos<Expr>(expr);}
 
 

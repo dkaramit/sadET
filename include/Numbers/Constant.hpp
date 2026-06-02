@@ -30,6 +30,10 @@ template<typename LD, templateP<LD> Value>
 class Constant{
 
     public:
+    //this tells me that this is a sadET expression
+    using is_sadET = void;
+    //It is good to know if it is a variable.
+    using is_Const = void;
     //this will be used to propagate LD without needeless template arguments
     using numType = LD;
 

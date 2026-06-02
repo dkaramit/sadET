@@ -6,8 +6,8 @@
 #include<misc.hpp>
 #include<Numbers/Constant.hpp>
 
-#include<NumericBinaryOperators/Addition.hpp>
-#include<NumericBinaryOperators/Multiplication.hpp>
+#include<NumericOperators/Sum.hpp>
+#include<NumericOperators/Product.hpp>
 #include<NumericUnaryOperators/Negative.hpp>
 #include<NumericUnaryOperators/Log.hpp>
 
@@ -16,17 +16,18 @@ namespace sadET{
 /*------------------------Power---------------------------------*/
 
 // this is the general case of Power
-template<typename base, typename power,typename dummy=void>
+template<typename base, typename power>
 class Power{
     public:
-    
+    using is_sadET = void;
+    using numType = typename common_type<typename base::numType,typename power::numType>::type;
+
     base B;
     power P;
 
-    using numType = typename common_type<typename base::numType,typename power::numType>::type;
 
 
-    Power(const base &B, const power &P):B(B),P(P){}
+    constexpr Power(const base &B, const power &P):B(B),P(P){}
 
     template<typename T>
     inline auto evaluate(const map<IDType,T> &at)const {return std::pow(B.evaluate(at) , P.evaluate(at));}
@@ -39,8 +40,8 @@ class Power{
 
 };
 
-template<typename base, typename power, typename dummy=void>
-inline auto pow(const base &B, const power &P){return Power<base,power>(B,P);}
+template<sadExpr base, sadExpr power>
+constexpr inline auto pow(const base &B, const power &P){return Power<base,power>(B,P);}
 
 
 
