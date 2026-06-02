@@ -28,14 +28,16 @@ To use the sadET library, include the `sadET.hpp` header file in your C++ code:
 
 Use `Constant<numType,value>` to declare constants and `Variable<ID,numType>` to decalre variables. Example:
 ```cpp
-sadET::Constant<long double, 0.4> c;
-sadET::Variable<0, double> x;
-sadET::Variable<1, double> y;
+    sadET::Constant<double,33> c;
+    sadET::Variable<sadID,double> x;
+    sadET::Variable<sadID,long double> y;
 ```
+Here sadID is a macro that gives unique IDs the variables.
+
 Due to the powerful type-deduction that C++ offers, you only need to declare types of your cponstants and variables, and the cpmpiler will figure it out. Consider this:
 ```c++
 sadET::Constant<long double, 0.4> c;
-sadET::Variable<0, double> x;
+sadET::Variable<sadID, double> x;
 auto f = pow(x,c);
 ```
 Here, `f` automatically is an instance of `sadET::Pow<sadET::Variable<0, double>, sadET::Constant<long double, 0.4>>`. However, all numerical operations will return `long double`, since it is their "biggest" common type.
@@ -53,13 +55,15 @@ using std::map;
 using sadET::IDType;
 using sadET::Constant;
 using sadET::Variable;
+using sadET::values;
+using sadET::set;
 
 int main(){
     Constant<long double,0.4> c;
-    Variable<0,double> x;
-    Variable<1,double> y;
+    Variable<sadID,double> x;
+    Variable<sadID,double> y;
 
-    map<IDType,long double> at= {{x.getID(),0.2},{y.getID(),0.8}} ;
+    auto at = values( set(x,1.2) , set(y,10.8) );
 
     //note that c++ can figure out that evaluate and derivative belong to sadET!
     cout<<evaluate( derivative( sin(x) * cos(y) + pow( x, sin(y+c) ) ,  x,y ) , at )<<"\n";
@@ -73,8 +77,6 @@ For full examples, see the `Examples` directory. I hope to continue adding new f
 
 
 # Work in progress... What I want to add in the near future:
-- Sort variables wrt ids's in operators. This may help you simplify things. 
-- Define Sum and Product for many variables (e.g. `Sum<expr, restExpr...>`) recursively, but with expressions ordered in some way.
-- Simplification rules. This feels harder, due to the heuristic nature of the subject.
+- Simplification rules. This feels hard in general, due to the heuristic nature of the subject.
 
-***If you know how to do these things, and like `sadET`, let me know at dkaramit@yahoo.com.*** 
+***If you know how to do this, and like `sadET`, let me know at dkaramit@yahoo.com.*** 
