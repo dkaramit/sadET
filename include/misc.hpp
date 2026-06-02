@@ -26,9 +26,9 @@ template<IDType ID, typename LD, typename dummy=void> class Variable;
 template<typename T> concept sadExpr = requires { typename std::decay_t<T>::is_sadET; };
 
 // I may use this to do somehitng with only variables
-template<typename T> concept variable  = requires { typename std::decay_t<T>::is_Var; };
+template<typename T> concept variableType  = requires { typename std::decay_t<T>::is_Var; };
 // I may use this to do somehitng with only variables
-template<typename T> concept constant = requires { typename std::decay_t<T>::is_Const; };
+template<typename T> concept constantType = requires { typename std::decay_t<T>::is_Const; };
 
 }
 

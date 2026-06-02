@@ -9,7 +9,7 @@ using sadET::evaluate;
 using sadET::derivative;
 
 
- int main(){
+int main(){
     // constant like:
     sadET::Constant<double,33> c;
     // using sadID to produce unique IDs,  declare variables as 
@@ -17,7 +17,7 @@ using sadET::derivative;
     sadET::Variable<sadID,long double> y;
     
 
-    std::map<sadET::IDType,double> at= {{x.getID(),1.2},{y.getID(),10.8}} ;
+    auto at = sadET::values( set(x,1.2) , set(y,10.8) );
 
     
     auto s= x+y+c;
