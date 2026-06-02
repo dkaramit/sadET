@@ -59,10 +59,11 @@ int main(){
     // cout<< evaluate( derivative(p+p*s+s,x,y) ,at)  <<"\n";
 
     // this should be 0.000306337
-    cout<< evaluate( derivative(pow(s-exp(-p/c)-x+sin(s-c-cos(p))+p*p,sin(log(s)))/log( derivative( p+s*y/c,y,y )),x,y) ,at)  <<"\n";
+    // cout<< evaluate( derivative(pow(s-exp(-p/c)-x+sin(s-c-cos(p))+p*p,sin(log(s)))/log( derivative( p+s*y/c,y,y )),x,y) ,at)  <<"\n";
     // cout<< print_expr( derivative(pow(s-exp(-p)-x+sin(s-cos(p))+p*p,sin(log(s)))/log(p+s*y),x,y) )  <<"\n";
 
-   // cout<<print_expr(s)<<"\n";
+   cout<<evaluate(s-s,at)<<"\n";
+   cout<<evaluate(p-p,at)<<"\n";
 
     return 0;
 }

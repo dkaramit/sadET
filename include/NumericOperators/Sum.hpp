@@ -9,7 +9,12 @@
 
 
 namespace sadET{
+//declare these because I use them
+template<typename... Terms>class Sum;
 
+template<sadExpr... Terms> constexpr auto make_sum(const Terms&... terms);
+
+// The Sum class
 template<typename... Terms>
 class Sum{
     public:
@@ -36,9 +41,9 @@ class Sum{
         template<IDType WRT,typename T>
         constexpr auto derivative(const Variable<WRT,T> &wrt) const {
             // std::decay_t just removes any const, &, &&, or anything that is not the actual type of term.derivative(wrt).
-            return std::apply( [&](const auto& ... term) { return  Sum<std::decay_t <decltype(term.derivative(wrt))> ...>(term.derivative(wrt)...); }, terms );
+            // return std::apply( [&](const auto& ... term) { return  Sum<std::decay_t <decltype(term.derivative(wrt))> ...>(term.derivative(wrt)...); }, terms );
             // this does the same thing
-            // return std::apply( [&](const auto& ... term) { return  make_sum(term.derivative(wrt)...); }, terms );
+            return std::apply( [&](const auto& ... term) { return  make_sum(term.derivative(wrt)...); }, terms );
         }
 
 
@@ -96,13 +101,17 @@ constexpr inline auto operator-(const Sum<L...>& lhs, const R& rhs) {
 // special case: expr - Sum 
 template<sadExpr L, sadExpr... R>
 constexpr inline auto operator-(const L& lhs, const Sum<R...>& rhs) {  
-    return std::apply( [&](const auto& ... term) { return  make_sum(lhs, -term...); }, rhs.terms ); 
+    return std::apply( [&](const auto& ... term) { return  make_sum(lhs, (-term)...); }, rhs.terms ); 
 }
 
 // special case: Sum - Sum 
 template<sadExpr... Ls, sadExpr... Rs>
 constexpr inline auto operator-(const Sum<Ls...>& lhs, const Sum<Rs...>& rhs) {
-    return std::apply( [&](const auto& ... term) { return  make_sum(-term...); }, std::tuple_cat(lhs.terms,rhs.terms) ); 
+    return std::apply(
+            [&](const auto&... lhs_terms) {
+                return std::apply([&](const auto&... rhs_terms) {return make_sum(lhs_terms..., (-rhs_terms)...);},rhs.terms);
+            },
+            lhs.terms);
 }
 
 }

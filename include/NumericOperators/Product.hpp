@@ -12,6 +12,12 @@
 
 namespace sadET{
 
+//declare these because I use them
+template<typename... Factors>class Product;
+
+template<sadExpr... Factors> constexpr auto make_product(const Factors&... factors);
+
+// class for Product
 template<typename... Factors>
 class Product{
     public:
