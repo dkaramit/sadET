@@ -10,8 +10,10 @@
 
 namespace sadET{
 
+// ----------------- make the map you pass to evaluate -----------------------------------
+// sets one variable to a value
 template<variableType V, typename T> constexpr auto set (const V& var, const T& value) { return std::pair<IDType, T>{var.getID(), value}; }
-
+//creates a map with all variable IDs and their values 
 template<typename... Pairs>
 auto values(const Pairs&... pairs) {
     using numType = std::common_type_t<typename Pairs::second_type...>;
