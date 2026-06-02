@@ -5,9 +5,10 @@
 #include<misc.hpp>
 #include<Numbers/Variable.hpp>
 
+#define sadID static_cast<::sadET::IDType>(__COUNTER__)
+
+
 namespace sadET{
-
-
 
 /*Evaluate expressions*/
 template<typename Expr, typename numType> constexpr auto evaluate(const Expr &expr, const map<IDType,numType> &at){return expr.evaluate(at);}
@@ -21,10 +22,6 @@ constexpr auto derivative(const Expr &expr, Var1 wrt, Vars... vars){
 }
 
 template<typename Expr> auto print_expr(const Expr &expr){return expr.str();}
-
-
-// #define SADET_VAR(LD) sadET::Variable<__COUNTER__, LD>{}
-
 
 }
 

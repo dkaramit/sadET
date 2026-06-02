@@ -2,18 +2,20 @@
 #include<cmath>
 
 #include<sadET.hpp>
-#include<tuple>
-#include <utility>
 
 using std::cout;
 using std::endl;
 using sadET::evaluate;
 using sadET::derivative;
 
+
  int main(){
+    // constant like:
     sadET::Constant<double,33> c;
-    sadET::Variable<0,double> x;
-    sadET::Variable<1,long double> y;
+    // using sadID to produce unique IDs,  declare variables as 
+    sadET::Variable<sadID,double> x;
+    sadET::Variable<sadID,long double> y;
+    
 
     std::map<sadET::IDType,double> at= {{x.getID(),1.2},{y.getID(),10.8}} ;
 
@@ -58,7 +60,7 @@ using sadET::derivative;
 
     // this should be 0.000306337
     cout<< evaluate( derivative(pow(s-exp(-p/c)-x+sin(s-c-cos(p))+p*p,sin(log(s)))/log( derivative( p+s*y/c,y,y )),x,y) ,at)  <<"\n";
-    cout<< print_expr( derivative(pow(s-exp(-p)-x+sin(s-cos(p))+p*p,sin(log(s)))/log(p+s*y),x,y) )  <<"\n";
+    // cout<< print_expr( derivative(pow(s-exp(-p)-x+sin(s-cos(p))+p*p,sin(log(s)))/log(p+s*y),x,y) )  <<"\n";
 
    // cout<<print_expr(s)<<"\n";
 
